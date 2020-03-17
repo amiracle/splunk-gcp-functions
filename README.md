@@ -11,9 +11,8 @@ This library contains GCP Function Templates to read from:
 This function pulls any event that is posted into PubSub and packages it up into a Splunk event. The event is then sent to the Http Event Collector (HEC). The function is written such that the event format can be sent compatible with Splunk's Add-On for Google Cloud Platform (https://splunkbase.splunk.com/app/3088/).
 If any failures occur during sending the message to HEC, the event is posted back to a Pub-Sub Topic. A recovery function is provided which is executed via a Cloud Scheduler trigger (PubSub). The recovery function will attempt to clear out the PubSub retry topic and send these events into HEC.
 
-**Metrics Function**
-[Metrics Examples using Event Index](https://github.com/amiracle/splunk-gcp-functions/blob/master/Examples/Example-2a-Metrics.md)
-[Metrics Examples using Metric Index](https://github.com/amiracle/splunk-gcp-functions/blob/master/Examples/Example-2b-Metrics.md)
+[**Metrics Function Event Index**](https://github.com/amiracle/splunk-gcp-functions/blob/master/Examples/Example-2a-Metrics.md)
+[**Metrics Function Metrics Index**][Metrics Examples using Metric Index](https://github.com/amiracle/splunk-gcp-functions/blob/master/Examples/Example-2b-Metrics.md)
 
 This function is triggered by a Cloud Scheduler trigger (via PubSub). The function calls Stackdriver Monitoring APIs to retrieve the metrics (metrics request list, and poll frequency set in environment variable). These metrics are then sent to Splunk HEC. Two formats are supported - one to be compatible with the Add-on for GCP, sending the metrics as events into Splunk, the second is sent as a metric into Splunk's Metrics index.
 As with the PubSub Function, any failed messages are sent into a PubSub topic for retry. A recovery function will attempt to resend periodically. 
